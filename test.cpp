@@ -1,70 +1,44 @@
 #include <iostream>
 using namespace std;
 
-struct treeNode {
-  int value;
-};
-
-class Node {
-  public:
-    Node(int d) {
-      data = d;
+void memcopy(int* src, int* dst, int N) {
+  if (dst > src) {
+    dst += N;
+    src += N;
+  }
+  while (N > 0) {
+    *dst = *src;
+    if (dst > src) {
+      src--;
+      dst--;
+    } else {
+      src++;
+      dst++;
     }
-  private:
-    Node *next = null;
-    int data;
-    void appendToTail(int d) {
-      Node end = new Node(d);
-      Node n = this;
-      while (n.next != null) {
-        n = n.next;
-      }
-      n.next = end;
-    }
-}
-
-class Stack {
-  public:
-    Stack(int capacity) { this.capacity = capacity; }
-    bool isAtCapacity() { return capacity == size; }
-    void join(Node above, Node below) {
-      if (below != null) below.above = above;
-      if (above != null) above.below = below;
-    }
-    bool push(int v) {
-      if (size >= capacity) return false; size++;
-      Node n = new Node(v);
-      if (size == 1) bottom = n;
-      join(n, top);
-      top=n;
-      return true;
-    }
-    int pop() { Node t = top;
-      top = top.below; size--;
-      return t.value;
-    }
-    bool isEmpty() { return size == 0; }
-    int removeBottom() {
-      Node b = bottom;
-      bottom = bottom.above;
-      if (bottom != null) bottom.below = null; size--;
-      return b.value;
-    }
-    Node top, bottom;
-    int size = 0;
-  private:
-    int capacity;
+    N--
+  }
 }
 
 int main() {
-  cout << "Hello World\n";
-  treeNode a;
-  a.value = 1;
-  cout << a.value << endl;
-  Stack<T> s;
-  s.push(1);
-  s.push(2);
-  int c = s.pop();
-  cout << c << endl;
-  return 0;
+  int c = 1;
+  int *a = &c;
+  a++;
+  *a = 2;
+  a++;
+  *a = 3;
+  a++;
+  *a = 4;
+  a -= 3;
+  int b[4] = {5, 6, 7, 8};
+  for (size_t i = 0; i < 4; i++) {
+    cout << a[i] << ", ";
+    cout << b[i] << ", ";
+  }
+  cout << endl;
+  // memcopy(a, b,  for (size_t i = 0; i < 4; i++) {
+    cout << a[i] << ", ";
+    cout << b[i] << ", ";
+  }
+  cout << endl;
+
 }
